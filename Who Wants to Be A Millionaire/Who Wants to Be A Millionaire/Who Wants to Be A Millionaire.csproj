@@ -33,7 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>d9437926cc8d785a7bdb8578fd85d8e3.ico</ApplicationIcon>
+    <ApplicationIcon>who-wants-to-be-a-millionaire-logo-png-transparent.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -86,6 +86,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="d9437926cc8d785a7bdb8578fd85d8e3.ico" />
+    <Content Include="who-wants-to-be-a-millionaire-logo-png-transparent.ico" />
     <None Include="Resources\theme.wav" />
     <None Include="Resources\song.wav" />
     <None Include="Resources\song.mp3" />
