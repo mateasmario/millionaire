@@ -16,6 +16,7 @@ namespace Who_Wants_to_Be_A_Millionaire
         private string answer;
         private int score;
         private bool isOnMenu = true;
+        public bool randomizeQuestions = false;
 
         public Form1()
         {
@@ -95,12 +96,28 @@ namespace Who_Wants_to_Be_A_Millionaire
             score++;
             ScoreLabel.Text = "Score: " + score.ToString();
 
-            QuestionLabel.Text = QuestionReader.getNext();
-            AnswerLabel1.Text = QuestionReader.getNext();
-            AnswerLabel2.Text = QuestionReader.getNext();
-            AnswerLabel3.Text = QuestionReader.getNext();
-            AnswerLabel4.Text = QuestionReader.getNext();
-            answer = QuestionReader.getNext();
+            checkBox1.Hide();
+
+            if (randomizeQuestions)
+            {
+                int pos = QuestionReader.getRandomPos();
+                QuestionLabel.Text = QuestionReader.getNext(pos);
+                AnswerLabel1.Text = QuestionReader.getNext(pos);
+                AnswerLabel2.Text = QuestionReader.getNext(pos);
+                AnswerLabel3.Text = QuestionReader.getNext(pos);
+                AnswerLabel4.Text = QuestionReader.getNext(pos);
+                answer = QuestionReader.getNext(pos);
+                QuestionReader.decreaseLength();
+            }
+            else
+            {
+                QuestionLabel.Text = QuestionReader.getNext();
+                AnswerLabel1.Text = QuestionReader.getNext();
+                AnswerLabel2.Text = QuestionReader.getNext();
+                AnswerLabel3.Text = QuestionReader.getNext();
+                AnswerLabel4.Text = QuestionReader.getNext();
+                answer = QuestionReader.getNext();
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -145,11 +162,7 @@ namespace Who_Wants_to_Be_A_Millionaire
             }
             else
             {
-                if (((Label)sender).Text == answer)
-                {
-                    Console.WriteLine("YES!");
-                }
-                else
+                if (((Label)sender).Text != answer)
                 {
                     DialogResult diagRes = MessageBox.Show("Incorrect answer. The correct answer was \"" + answer + "\".", "Who Wants To Be A Millionaire", MessageBoxButtons.OK);
                     if (diagRes == DialogResult.OK)
@@ -171,5 +184,11 @@ namespace Who_Wants_to_Be_A_Millionaire
             ((Label)sender).ForeColor = Color.White;
         }
 
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (((CheckBox)sender).CheckState == CheckState.Checked)
+                randomizeQuestions = true;
+            else randomizeQuestions = false;
+        }
     }
 }
