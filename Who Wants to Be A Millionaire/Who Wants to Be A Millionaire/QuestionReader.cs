@@ -40,7 +40,9 @@ namespace Who_Wants_to_Be_A_Millionaire
             {
                 Console.WriteLine(ex.Message);
 
-                DialogResult diagRes = MessageBox.Show("There are no more answers left. Seems that you finished the game!", "Who Wants To Be A Millionaire", MessageBoxButtons.OK);
+                DialogResult diagRes = MessageBox.Show("There are no more questions left. Seems that you finished the game!", "Who Wants To Be A Millionaire", MessageBoxButtons.OK);
+                Logger.writeTrace("No more questions left. Exiting game.");
+                Logger.setStatus(false);
                 if (diagRes == DialogResult.OK)
                     Application.Exit();
 
@@ -59,6 +61,8 @@ namespace Who_Wants_to_Be_A_Millionaire
             if (length == 0)
             {
                 DialogResult diagRes = MessageBox.Show("There are no more answers left. Seems that you finished the game!", "Who Wants To Be A Millionaire", MessageBoxButtons.OK);
+                Logger.writeTrace("No more questions left. Exiting game.");
+                Logger.setStatus(false);
                 if (diagRes == DialogResult.OK)
                     Application.Exit();
 
@@ -85,6 +89,11 @@ namespace Who_Wants_to_Be_A_Millionaire
             Random rand = new Random();
             int result = rand.Next(noQuestions);
             return result * 6;
+        }
+
+        public static int getNoQuestions()
+        {
+            return noQuestions;
         }
 
     }

@@ -55,6 +55,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Logger.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuestionReader.cs" />
@@ -86,6 +87,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="d9437926cc8d785a7bdb8578fd85d8e3.ico" />
+    <None Include="Resources\5050.png" />
+    <None Include="Resources\5050white.bmp" />
+    <None Include="Resources\5050 white.png" />
+    <None Include="Resources\5050dark.png" />
+    <None Include="Resources\Classic5050-1.png" />
     <Content Include="who-wants-to-be-a-millionaire-logo-png-transparent.ico" />
     <None Include="Resources\theme.wav" />
     <None Include="Resources\song.wav" />

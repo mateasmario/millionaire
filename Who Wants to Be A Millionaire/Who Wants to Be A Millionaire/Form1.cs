@@ -17,9 +17,11 @@ namespace Who_Wants_to_Be_A_Millionaire
         private int score;
         private int failures;
         private bool isOnMenu = true;
-        public bool randomizeQuestions = false;
-        public bool allowFailures = false;
-        public bool wasFailure = false;
+        private bool randomizeQuestions = false;
+        private bool allowFailures = false;
+        private bool wasFailure = false;
+        private bool logging = false;
+        private bool exit = false;
 
         public Form1()
         {
@@ -102,8 +104,21 @@ namespace Who_Wants_to_Be_A_Millionaire
         public void NextQuestion()
         {
             if (wasFailure)
+            {
+                Logger.writeTrace("Previous answer was wrong.");
                 failures++;
-            else score++;
+                Logger.writeTrace("Failure count: " + failures.ToString());
+            }
+            else
+            {
+                if (!isOnMenu)
+                    Logger.writeTrace("Previous answer was right.");
+                
+                score++;
+                
+                if (!isOnMenu)
+                    Logger.writeTrace("Score count: " + score.ToString());
+            }
             if (allowFailures)
             {
                 FailureLabel.Text = "Failures: " + failures.ToString();
@@ -114,26 +129,57 @@ namespace Who_Wants_to_Be_A_Millionaire
 
             checkBox1.Hide();
             checkBox2.Hide();
+            checkBox3.Hide();
 
             if (randomizeQuestions)
             {
                 int pos = QuestionReader.getRandomPos();
+                Logger.writeTrace("Getting random question from position: " + pos);
+
                 QuestionLabel.Text = QuestionReader.getNext(pos);
+                Logger.writeTrace("Question: " + QuestionLabel.Text);
+
                 AnswerLabel1.Text = QuestionReader.getNext(pos);
+                Logger.writeTrace("Answer 1: " + AnswerLabel1.Text);
+
                 AnswerLabel2.Text = QuestionReader.getNext(pos);
+                Logger.writeTrace("Answer 2: " + AnswerLabel2.Text);
+
                 AnswerLabel3.Text = QuestionReader.getNext(pos);
+                Logger.writeTrace("Answer 3: " + AnswerLabel3.Text);
+
                 AnswerLabel4.Text = QuestionReader.getNext(pos);
+                Logger.writeTrace("Answer 4: " + AnswerLabel4.Text);
+
                 answer = QuestionReader.getNext(pos);
+                Logger.writeTrace("Correct Answer: " + answer);
+
+                Logger.writeTrace("Decreasing total question number.");
                 QuestionReader.decreaseLength();
+                Logger.writeTrace("Question Number: " + QuestionReader.getNoQuestions());
             }
             else
             {
+                Logger.writeTrace("Getting question from the list.");
+
                 QuestionLabel.Text = QuestionReader.getNext();
+
+                Logger.writeTrace("Question: " + QuestionLabel.Text);
+
                 AnswerLabel1.Text = QuestionReader.getNext();
+                Logger.writeTrace("Answer 1: " + AnswerLabel1.Text);
+
                 AnswerLabel2.Text = QuestionReader.getNext();
+                Logger.writeTrace("Answer 2: " + AnswerLabel2.Text);
+
                 AnswerLabel3.Text = QuestionReader.getNext();
+                Logger.writeTrace("Answer 3: " + AnswerLabel3.Text);
+
                 AnswerLabel4.Text = QuestionReader.getNext();
+                Logger.writeTrace("Answer 4: " + AnswerLabel4.Text);
+
                 answer = QuestionReader.getNext();
+                Logger.writeTrace("Correct Answer: " + answer);
             }
         }
 
@@ -158,6 +204,13 @@ namespace Who_Wants_to_Be_A_Millionaire
             if (isOnMenu)
             {
                 if (((Label)sender).Text == "Start Game") {
+                    // start the logger
+                    if (logging)
+                    {
+                        Logger.open();
+                        Logger.writeTrace("Quiz started");
+                    }
+
                     // play "thinking" song
                     System.IO.Stream str = Properties.Resources.song;
                     System.Media.SoundPlayer snd = new System.Media.SoundPlayer(str);
@@ -187,12 +240,15 @@ namespace Who_Wants_to_Be_A_Millionaire
                         DialogResult diagRes = MessageBox.Show("Incorrect answer. The correct answer was \"" + answer + "\".", "Who Wants To Be A Millionaire", MessageBoxButtons.OK);
                         if (diagRes == DialogResult.OK)
                         {
+                            exit = true;
+                            Logger.writeTrace("Wrong answer chosen and 'Allow Failures' was not enabled. Exiting application");
+                            Logger.setStatus(false);
                             Application.Exit();
                         }
                     }
                     else wasFailure = true;
                 }
-                NextQuestion();
+                if (!exit) NextQuestion();
             }
         }
 
@@ -218,6 +274,19 @@ namespace Who_Wants_to_Be_A_Millionaire
             if (((CheckBox)sender).CheckState == CheckState.Checked)
                 allowFailures = true;
             else allowFailures = false;
+        }
+
+        private void checkBox3_CheckedChanged(object sender, EventArgs e)
+        {
+            if (((CheckBox)sender).CheckState == CheckState.Checked)
+                logging = true;
+            else logging = false;
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (logging)
+                Logger.close();
         }
     }
 }
