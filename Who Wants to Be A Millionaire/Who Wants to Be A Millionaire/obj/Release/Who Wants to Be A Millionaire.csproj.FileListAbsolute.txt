@@ -1,0 +1,11 @@
+E:\git\millionaire\Who Wants to Be A Millionaire\Who Wants to Be A Millionaire\bin\Release\Who Wants to Be A Millionaire.exe.config
+E:\git\millionaire\Who Wants to Be A Millionaire\Who Wants to Be A Millionaire\bin\Release\Who Wants to Be A Millionaire.exe
+E:\git\millionaire\Who Wants to Be A Millionaire\Who Wants to Be A Millionaire\bin\Release\Who Wants to Be A Millionaire.pdb
+E:\git\millionaire\Who Wants to Be A Millionaire\Who Wants to Be A Millionaire\obj\Release\Who Wants to Be A Millionaire.csproj.AssemblyReference.cache
+E:\git\millionaire\Who Wants to Be A Millionaire\Who Wants to Be A Millionaire\obj\Release\Who Wants to Be A Millionaire.csproj.SuggestedBindingRedirects.cache
+E:\git\millionaire\Who Wants to Be A Millionaire\Who Wants to Be A Millionaire\obj\Release\Who_Wants_to_Be_A_Millionaire.Form1.resources
+E:\git\millionaire\Who Wants to Be A Millionaire\Who Wants to Be A Millionaire\obj\Release\Who_Wants_to_Be_A_Millionaire.Properties.Resources.resources
+E:\git\millionaire\Who Wants to Be A Millionaire\Who Wants to Be A Millionaire\obj\Release\Who Wants to Be A Millionaire.csproj.GenerateResource.cache
+E:\git\millionaire\Who Wants to Be A Millionaire\Who Wants to Be A Millionaire\obj\Release\Who Wants to Be A Millionaire.csproj.CoreCompileInputs.cache
+E:\git\millionaire\Who Wants to Be A Millionaire\Who Wants to Be A Millionaire\obj\Release\Who Wants to Be A Millionaire.exe
+E:\git\millionaire\Who Wants to Be A Millionaire\Who Wants to Be A Millionaire\obj\Release\Who Wants to Be A Millionaire.pdb
