@@ -15,8 +15,11 @@ namespace Who_Wants_to_Be_A_Millionaire
     {
         private string answer;
         private int score;
+        private int failures;
         private bool isOnMenu = true;
         public bool randomizeQuestions = false;
+        public bool allowFailures = false;
+        public bool wasFailure = false;
 
         public Form1()
         {
@@ -41,7 +44,11 @@ namespace Who_Wants_to_Be_A_Millionaire
 
             ScoreLabel.Font = new Font("Tahoma", 8, FontStyle.Bold);
             ScoreLabel.Parent = pictureBox1;
-            ScoreLabel.Refresh();
+            ScoreLabel.Refresh();            
+            
+            FailureLabel.Font = new Font("Tahoma", 8, FontStyle.Bold);
+            FailureLabel.Parent = pictureBox1;
+            FailureLabel.Refresh();
         }
 
         public void ResetElements()
@@ -89,14 +96,24 @@ namespace Who_Wants_to_Be_A_Millionaire
             AnswerLabel3.Text = "About";
             AnswerLabel4.Text = "Exit Game";
             ScoreLabel.Text = "";
+            FailureLabel.Text = "";
         }
 
         public void NextQuestion()
         {
-            score++;
+            if (wasFailure)
+                failures++;
+            else score++;
+            if (allowFailures)
+            {
+                FailureLabel.Text = "Failures: " + failures.ToString();
+                wasFailure = false;
+            }
+            
             ScoreLabel.Text = "Score: " + score.ToString();
 
             checkBox1.Hide();
+            checkBox2.Hide();
 
             if (randomizeQuestions)
             {
@@ -127,6 +144,7 @@ namespace Who_Wants_to_Be_A_Millionaire
             InitializeMenu();
 
             this.score = -1;
+            this.failures = 0;
             QuestionReader.readFile(@"data/questions.dat");
 
             // play theme song
@@ -164,11 +182,15 @@ namespace Who_Wants_to_Be_A_Millionaire
             {
                 if (((Label)sender).Text != answer)
                 {
-                    DialogResult diagRes = MessageBox.Show("Incorrect answer. The correct answer was \"" + answer + "\".", "Who Wants To Be A Millionaire", MessageBoxButtons.OK);
-                    if (diagRes == DialogResult.OK)
+                    if (!allowFailures)
                     {
-                        Application.Exit();
+                        DialogResult diagRes = MessageBox.Show("Incorrect answer. The correct answer was \"" + answer + "\".", "Who Wants To Be A Millionaire", MessageBoxButtons.OK);
+                        if (diagRes == DialogResult.OK)
+                        {
+                            Application.Exit();
+                        }
                     }
+                    else wasFailure = true;
                 }
                 NextQuestion();
             }
@@ -189,6 +211,13 @@ namespace Who_Wants_to_Be_A_Millionaire
             if (((CheckBox)sender).CheckState == CheckState.Checked)
                 randomizeQuestions = true;
             else randomizeQuestions = false;
+        }
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+            if (((CheckBox)sender).CheckState == CheckState.Checked)
+                allowFailures = true;
+            else allowFailures = false;
         }
     }
 }
