@@ -285,7 +285,7 @@ namespace Who_Wants_to_Be_A_Millionaire
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
-            if (logging)
+            if (logging && Logger.getStatus() == true)
                 Logger.close();
         }
     }

@@ -39,7 +39,8 @@ namespace Who_Wants_to_Be_A_Millionaire
 
         public static void writeTrace(String text)
         {
-            write("<" + DateTime.Now.ToLongTimeString() + "> " + text);
+            if (available)
+                write("<" + DateTime.Now.ToLongTimeString() + "> " + text);
         }
 
         public static void close()
@@ -50,6 +51,11 @@ namespace Who_Wants_to_Be_A_Millionaire
         public static void setStatus(bool status)
         {
             available = status;
+        }
+
+        public static bool getStatus()
+        {
+            return available;
         }
     }
 }
